@@ -1,0 +1,25 @@
+.modal.show .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+    max-width: 96%;
+    margin: 2% auto;
+}
+.embed-responsive {
+    overflow: auto;
+    height: 90vh;
+}
+.modal-body {
+    padding: 0;
+}
+button.close {
+    opacity: 1;
+    font-size: 6rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: none;
+    position: relative;
+    z-index: 9999;
+    line-height: 3rem;
+    padding: 0 1rem;
+}

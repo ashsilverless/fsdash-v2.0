@@ -1,0 +1,128 @@
+<request>
+  <auth>
+    <user>cpapi</user>
+    <key>db1ffb0a29e8d7bf7ee056debafdc8e1</key>
+  </auth>
+  <action>
+    <method>rates_list</method>
+    <params>
+      <param name="page_size" value="1000"/>
+      <param name="supplier_id" value="136873"/>
+      <param name="agent_id" value="117882"/>
+      <param name="date_from" value="02-04-2020"/>
+      <param name="date_to" value="16-04-2020"/>
+    </params>
+  </action>
+</request>
+
+
+
+
+
+
+
+Right, I think I'm getting somewhere now.
+The nomeclature they use is somewhat confusing, BUT I think this is how they work.
+A 'Property' is called a 'Supplier' in PE.   So I can build a request like this .....
+
+<request>
+  <auth>
+    <user>cpapi</user>
+    <key>db1ffb0a29e8d7bf7ee056debafdc8e1</key>
+  </auth>
+  <action>
+    <method>rates_list</method>
+    <params>
+      <param name="supplier_id" value="136988"/>
+      <param name="agent_id" value="117882"/>
+      <param name="date_from" value="02-04-2020"/>
+      <param name="date_to" value="16-04-2020"/>
+    </params>
+  </action>
+</request>
+
+Where Supplier_Id is the ID of the property in question, Agent_Id is for Chelli and Peacock, Date From and To are self explanatory.
+
+
+
+
+
+The result come back as a json array with items such as  <adult_sell_1 type="float">330.0</adult_sell_1> through to <adult_sell_7 type="float">330.0</adult_sell_7>, then child 1-7 and infant 1-7 with a Date From and Date To   (<date_from type="datetime">2020-04-01T00:00:00+00:00</date_from>   &   <date_to type="datetime">2020-04-15T00:00:00+00:00</date_to>) with each 'price' item having a Service_id which I presume is the accommodation type, eg Double Room, Tent etc .. <service_id type="integer">552423</service_id>.
+
+
+Not all the items in the json array will have exact dates requested in their date from and to's.  For example, service_id : 552937  has prices for date range 2019-12-19 to 2020-12-20, just to make things more awkward !
+That's as far as I've got at present, but definitely getting there !
+
+
+
+
+
+
+
+
+<date_from type="datetime">2019-12-19T00:00:00+00:00</date_from>
+      <date_to type="datetime">2020-12-20T00:00:00+00:00</date_to>
+      <infant_sell_1 type="float">0.0</infant_sell_1>
+      <infant_sell_2 type="float">0.0</infant_sell_2>
+      <infant_sell_3 type="float">0.0</infant_sell_3>
+      <infant_sell_4 type="float">0.0</infant_sell_4>
+      <infant_sell_5 type="float">0.0</infant_sell_5>
+      <infant_sell_6 type="float">0.0</infant_sell_6>
+      <infant_sell_7 type="float">0.0</infant_sell_7>
+      <service_id type="integer">552937</service_id>
+
+
+<response>
+  <prices type="array">
+    <price>
+      <adult_sell_1 type="float">330.0</adult_sell_1>
+      <adult_sell_2 type="float">330.0</adult_sell_2>
+      <adult_sell_3 type="float">330.0</adult_sell_3>
+      <adult_sell_4 type="float">330.0</adult_sell_4>
+      <adult_sell_5 type="float">330.0</adult_sell_5>
+      <adult_sell_6 type="float">330.0</adult_sell_6>
+      <adult_sell_7 type="float">330.0</adult_sell_7>
+      <child_sell_1 type="float">0.0</child_sell_1>
+      <child_sell_2 type="float">0.0</child_sell_2>
+      <child_sell_3 type="float">0.0</child_sell_3>
+      <child_sell_4 type="float">0.0</child_sell_4>
+      <child_sell_5 type="float">0.0</child_sell_5>
+      <child_sell_6 type="float">0.0</child_sell_6>
+      <child_sell_7 type="float">0.0</child_sell_7>
+      <date_from type="datetime">2020-04-01T00:00:00+00:00</date_from>
+      <date_to type="datetime">2020-04-15T00:00:00+00:00</date_to>
+      <infant_sell_1 type="float">0.0</infant_sell_1>
+      <infant_sell_2 type="float">0.0</infant_sell_2>
+      <infant_sell_3 type="float">0.0</infant_sell_3>
+      <infant_sell_4 type="float">0.0</infant_sell_4>
+      <infant_sell_5 type="float">0.0</infant_sell_5>
+      <infant_sell_6 type="float">0.0</infant_sell_6>
+      <infant_sell_7 type="float">0.0</infant_sell_7>
+      <service_id type="integer">552423</service_id>
+    </price>
+    <price>
+      <adult_sell_1 type="float">247.5</adult_sell_1>
+      <adult_sell_2 type="float">247.5</adult_sell_2>
+      <adult_sell_3 type="float">247.5</adult_sell_3>
+      <adult_sell_4 type="float">247.5</adult_sell_4>
+      <adult_sell_5 type="float">247.5</adult_sell_5>
+      <adult_sell_6 type="float">247.5</adult_sell_6>
+      <adult_sell_7 type="float">247.5</adult_sell_7>
+      <child_sell_1 type="float">0.0</child_sell_1>
+      <child_sell_2 type="float">0.0</child_sell_2>
+      <child_sell_3 type="float">0.0</child_sell_3>
+      <child_sell_4 type="float">0.0</child_sell_4>
+      <child_sell_5 type="float">0.0</child_sell_5>
+      <child_sell_6 type="float">0.0</child_sell_6>
+      <child_sell_7 type="float">0.0</child_sell_7>
+      <date_from type="datetime">2020-04-01T00:00:00+00:00</date_from>
+      <date_to type="datetime">2020-04-15T00:00:00+00:00</date_to>
+      <infant_sell_1 type="float">0.0</infant_sell_1>
+      <infant_sell_2 type="float">0.0</infant_sell_2>
+      <infant_sell_3 type="float">0.0</infant_sell_3>
+      <infant_sell_4 type="float">0.0</infant_sell_4>
+      <infant_sell_5 type="float">0.0</infant_sell_5>
+      <infant_sell_6 type="float">0.0</infant_sell_6>
+      <infant_sell_7 type="float">0.0</infant_sell_7>
+      <service_id type="integer">552424</service_id>
+    </price>
