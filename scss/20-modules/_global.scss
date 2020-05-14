@@ -42,7 +42,9 @@ input {
     font-weight: 200;
     text-transform: uppercase;
 }
-
+.container {
+    position: relative;
+}
 .button {
     display: flex;
     align-items: center;
@@ -275,4 +277,13 @@ form {
 }
 .select-css option {
 	font-weight:normal;
+}
+
+.counter-wrapper {
+    position: absolute;
+    top:0;
+    right: 0;
+    &.warning {
+        background:red;
+    }
 }

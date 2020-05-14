@@ -60,6 +60,11 @@ define('__ROOT__', dirname(dirname(__FILE__)));
 require_once(__ROOT__.'/header.php');
 require_once(__ROOT__.'/page-sections/header-elements.php');
 require_once(__ROOT__.'/page-sections/sidebar-elements.php');
+
+
+
+
+
 ?>
 
     <div class="col-md-9">

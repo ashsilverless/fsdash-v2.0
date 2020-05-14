@@ -67,3 +67,61 @@ if (!results) return null;
 if (!results[2]) return '';
 return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
+
+/*=== Time Out Function ===*/
+
+var idleTime = 0;
+var seconds = 0;
+var maxTime = 1430;
+var timeOutWrapper = document.getElementById('time-out');
+var secondsCounter = document.getElementById('seconds-counter');
+var counterChart = document.getElementById('counter-chart');
+
+$(document).ready(function () {
+
+    var idleInterval = setInterval(idleIncrement, 1000);
+    var timeInterval = setInterval(timeIncrement, 1000);
+
+    $(this).mousemove(function (e) {
+        idleTime = 0;
+        seconds = 0;
+      maxTime = 1430;
+    });
+
+    $(this).keypress(function (e) {
+        idleTime = 0;
+        seconds = 0;
+      maxTime = 1430;
+    });
+
+    function idleIncrement() {
+        idleTime = idleTime + 1;
+        if (idleTime > 14300) {
+            window.location.reload();
+        }
+    }
+
+    function timeIncrement() {
+        if (idleTime > 0) {
+            seconds += 1;
+            maxTime -= 1;
+            var timeInMins = Math.ceil(maxTime / 60);
+            var secsToPercent = Math.ceil((seconds / 60) * 100);
+            secondsCounter.innerText = timeInMins + " mins left."
+            counterChart.className = "progress-circle progress-" + secsToPercent;
+            if (seconds == 60) {
+                seconds = 0;
+            }
+        }
+    }
+});
+
+function logOut() {
+    $.ajax({
+        type: "GET",
+        url: "logout.php",
+        success: function () {
+           $('#loggedout').modal({backdrop: 'static', keyboard: false});
+        }
+    });
+}

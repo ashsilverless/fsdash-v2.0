@@ -1,5 +1,5 @@
 <!--Modal: Log In As-->
-<div class="modal fade" id="modalCLIENT" tabindex="-1" role="dialog" aria-labelledby="modalCLIENT" aria-hidden="true">
+<div class="modal fade log-in-as" id="modalCLIENT" tabindex="-1" role="dialog" aria-labelledby="modalCLIENT" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <!--Content-->
     <div class="modal-content">

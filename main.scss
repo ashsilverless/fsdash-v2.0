@@ -8,6 +8,7 @@ Handles import of all Sass and partials, outputting as style.css
 @import "scss/10-base/typography.scss";
 /* === 2 - Vendor ===*/
 @import "scss/15-vendor/bootstrap.scss";
+@import "scss/15-vendor/progress-circles.scss";
 /* === 3 - Atomic ===*/
 @import "scss/20-modules/global.scss";
 @import "scss/20-modules/header.scss";

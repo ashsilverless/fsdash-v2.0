@@ -72,6 +72,7 @@ require_once(__ROOT__.'/header.php');
 require_once(__ROOT__.'/page-sections/header-elements.php');
 require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 ?>
+
     <div class="col-md-9">
         <div class="border-box main-content daily-data">
             <div class="main-content__head">
