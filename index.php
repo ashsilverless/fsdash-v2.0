@@ -9,7 +9,8 @@ if ($csrf == $_SESSION["fs_client_token"]) {
 	/* Check Username and Password */
 	$query		= db_query("select * from tbl_fsusers where email_address='".$username."' and password='".$password."' ");
 	$resuser = mysqli_num_rows($query);
-	if($resuser = 1){
+
+	if($resuser == 1){
 		$row = mysqli_fetch_array($query);
 		session_regenerate_id();
 		$_SESSION['fs_client_email'] 	= $row['email_address'];
@@ -31,8 +32,7 @@ if ($csrf == $_SESSION["fs_client_token"]) {
 		header('Location:device_confirmations.php');
 		exit();
 	}else{
-		$strmsg="Invalid Username or Password";
-		exit();
+		$strmsg = "Invalid Username or Password";
 	}
 
 }
@@ -60,7 +60,7 @@ if ($csrf == $_SESSION["fs_client_token"]) {
                                     <?php include 'client/images/fs-logo.php'; ?>
                                 </h1>
                                 <form name="reg" action="index.php" method="POST">
-    <?=$strmsg;?>
+    <!--   ERROR BOX/   --><div class="error_box"><?=$strmsg;?></div><!--   /ERROR BOX   -->
     <input type="hidden" name="csrf" 	 value="<?php print $_SESSION["fs_client_token"]; ?>" >
     <input type="hidden" name="passcode" value="<?php echo $passcode; ?>" >
     <div class="form-group">

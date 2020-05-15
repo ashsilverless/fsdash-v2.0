@@ -100,8 +100,8 @@ $(document).ready(function () {
 
     function idleIncrement() {
         idleTime = idleTime + 1;
-        if (idleTime > 14300) {
-            window.location.reload();
+        if (idleTime > maxTime) {
+            //logOut();
         }
     }
 

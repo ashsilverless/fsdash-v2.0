@@ -14,6 +14,8 @@ $ga = new GoogleAuthenticator();
 $checkResult = $ga->verifyCode($secret, $code, 2);    // 2 = 2*30sec clock tolerance
 
 
+$_SESSION['fs_client_error'] = FALSE;
+	
 if ($checkResult){
 	$_SESSION['fs_client_googleCode']	= $code;
 	$_SESSION['fs_client_loggedin'] = TRUE;
@@ -26,6 +28,7 @@ if ($checkResult){
 }
 else{
 	$_SESSION['fs_client_loggedin'] = FALSE;
+	$_SESSION['fs_client_error'] = TRUE;
 	header("location:device_confirmations.php");
     exit;
 }
