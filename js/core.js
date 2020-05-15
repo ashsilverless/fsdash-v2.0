@@ -72,20 +72,23 @@ return decodeURIComponent(results[2].replace(/\+/g, " "));
 
 var idleTime = 0;
 var seconds = 0;
-var maxTime = 1430;
+var timeOut = 1200;
+var maxTime = timeOut;
 var timeOutWrapper = document.getElementById('time-out');
-var secondsCounter = document.getElementById('seconds-counter');
-var counterChart = document.getElementById('counter-chart');
+var timeRemaining = document.getElementById('time-counter');
+var progressBar = document.getElementById('progress-bar');
 
 $(document).ready(function () {
 
-    var idleInterval = setInterval(idleIncrement, 100);
-    var timeInterval = setInterval(timeIncrement, 100);
+    var idleInterval = setInterval(idleIncrement, 1000);
+    var timeInterval = setInterval(timeIncrement, 1000);
 
     function resetCounter() {
+        timeOutWrapper.classList.remove("active");
+        timeOutWrapper.classList.remove("warning");
         idleTime = 0;
         seconds = 0;
-        maxTime = 1430;
+        maxTime = timeOut;
         secondsCounter.innerText = "";
         counterChart.className = "";
     }
@@ -101,21 +104,22 @@ $(document).ready(function () {
     function idleIncrement() {
         idleTime = idleTime + 1;
         if (idleTime > maxTime) {
-            //logOut();
+            logOut();
         }
     }
 
     function timeIncrement() {
-        if (idleTime > 10) {
+        if (idleTime > 240) {
+            timeOutWrapper.classList.add("active");
             seconds += 1;
             maxTime -= 1;
             var timeInMins = Math.ceil(maxTime / 60);
-            var secsToPercent = Math.ceil((seconds / 60) * 100);
-            secondsCounter.innerText = timeInMins + " mins left."
-            counterChart.className = "progress-circle progress-" + secsToPercent;
-            if (seconds == 60) {
-                seconds = 0;
-            }
+            var timeInPercent = Math.ceil(100 - (100 / timeOut) * maxTime);
+            timeRemaining.innerText = timeInMins;
+            progressBar.setAttribute("style", "width:" + timeInPercent +"%;");
+        }
+        if (timeInMins < 10) {
+            timeOutWrapper.classList.add("warning");
         }
     }
 });
