@@ -508,10 +508,17 @@ form.fund {
         align-self: flex-start;
         svg {
             overflow: visible;
+            height: auto;
             circle {
-                &.selected {
-                    stroke-width:11;
+                
+                &.donut-segment {
+                    opacity:0.7;
+                    &.selected {
+                        stroke-width: 11px;
+                        opacity: 1;
+                    }
                 }
+
             }
             text {
                 transform: rotate(90deg);

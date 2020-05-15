@@ -89,8 +89,8 @@ $(document).ready(function () {
         idleTime = 0;
         seconds = 0;
         maxTime = timeOut;
-        secondsCounter.innerText = "";
-        counterChart.className = "";
+        //secondsCounter.innerText = "";
+        //counterChart.className = "";
     }
 
     $(this).mousemove(function (e) {
