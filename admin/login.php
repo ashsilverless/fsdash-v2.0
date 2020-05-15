@@ -47,8 +47,7 @@ try {
             $_SESSION['company_id'] = $row['company_id'];
             $_SESSION['agent_level'] = $row['agent_level'];
 			$_SESSION['id'] = session_id();
-            $dbhash = $row['password_hash'];
-            password_verify($password,$dbhash) ? $_SESSION['loggedin'] = TRUE : $_SESSION['loggedin'] = FALSE;
+            $_SESSION['loggedin'] = TRUE;
 	  }
 
 	  $conn = null;        // Disconnect
