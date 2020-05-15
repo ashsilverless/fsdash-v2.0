@@ -79,19 +79,23 @@ var counterChart = document.getElementById('counter-chart');
 
 $(document).ready(function () {
 
-    var idleInterval = setInterval(idleIncrement, 1000);
-    var timeInterval = setInterval(timeIncrement, 1000);
+    var idleInterval = setInterval(idleIncrement, 100);
+    var timeInterval = setInterval(timeIncrement, 100);
 
-    $(this).mousemove(function (e) {
+    function resetCounter() {
         idleTime = 0;
         seconds = 0;
-      maxTime = 1430;
+        maxTime = 1430;
+        secondsCounter.innerText = "";
+        counterChart.className = "";
+    }
+
+    $(this).mousemove(function (e) {
+        resetCounter();
     });
 
     $(this).keypress(function (e) {
-        idleTime = 0;
-        seconds = 0;
-      maxTime = 1430;
+        resetCounter();
     });
 
     function idleIncrement() {
@@ -102,7 +106,7 @@ $(document).ready(function () {
     }
 
     function timeIncrement() {
-        if (idleTime > 0) {
+        if (idleTime > 10) {
             seconds += 1;
             maxTime -= 1;
             var timeInMins = Math.ceil(maxTime / 60);
