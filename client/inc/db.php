@@ -1,17 +1,21 @@
 <?php
 session_start();
+
+
 if(!$_SESSION['fs_client_loggedin']){
     header("location:../index.php");
 }
+
 if($_GET['err']!=""){
 	ini_set ("display_errors", "1");	error_reporting(E_ALL);
 }
+
 	##################      LIVE SERVER     ###########################
 
-	$host = "46.32.229.204";
+	$host = "localhost";
 	$user = "FeatherStoneDashboard";
 	$pass = "FSD>Login-1";
-	$db = "featherstone_db";
+	$db	 = "featherstone_db";
 	$charset = 'utf8mb4';
 
 	##################     / LIVE SERVER     ##########################
@@ -39,7 +43,29 @@ function date_range($first, $last, $step = '+1 day', $output_format = 'Y-m-d' ) 
     return $dates;
 }
 
+function db_query($query){
+	global $host,$user, $pass, $db, $charset;
+	try {
+	  // Connect and create the PDO object
+	  $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
+	  $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
+//debug("SELECT * FROM $tbl WHERE $status ORDER BY $orderFld ASC ");
+	  $result = $conn->prepare($query);
+	  $result->execute();
 
+	  // Parse returned data
+	  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+		  $return[] = $row;
+	  }
+
+	  $conn = null;        // Disconnect
+	  return $return;
+
+	}
+	catch(PDOException $e) {
+	  echo $e->getMessage();
+	}
+}
 
 
 function getTable($tbl,$orderFld = "id",$status = 'bl_live = 1'){
@@ -48,7 +74,7 @@ function getTable($tbl,$orderFld = "id",$status = 'bl_live = 1'){
 	  // Connect and create the PDO object
 	  $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
 	  $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
-debug("SELECT * FROM $tbl WHERE $status ORDER BY $orderFld ASC ");
+//debug("SELECT * FROM $tbl WHERE $status ORDER BY $orderFld ASC ");
 	  $result = $conn->prepare("SELECT * FROM $tbl WHERE $status ORDER BY $orderFld ASC ");
 	  $result->execute();
 
@@ -99,7 +125,7 @@ function get_current_price($code){
 
         $query = "SELECT * FROM tbl_fs_fund WHERE isin_code LIKE '$code' AND bl_live = 1 ORDER BY correct_at DESC LIMIT 1;";
 
-        debug ($query);
+       // debug ($query);
 
 	  $result = $conn->prepare($query);
 	  $result->execute();
@@ -127,7 +153,7 @@ function get_benchmark($code){
 
         $query = "SELECT * FROM tbl_fs_fund WHERE isin_code LIKE '$code' AND bl_live = 1 ORDER BY correct_at DESC LIMIT 1;";
 
-        debug ($query);
+       // debug ($query);
 
 	  $result = $conn->prepare($query);
 	  $result->execute();
