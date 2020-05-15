@@ -129,44 +129,10 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
     </div>
 </div>
 
-
-<!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="../index.php">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-<!--    Logged Out  -->
-    <div class="modal fade" id="loggedout" tabindex="-1" role="dialog" aria-labelledby="LoggedOut" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Your Session has Timed Out</h5>
-        </div>
-        <div class="modal-body">Select "Login" below if you want to continue your session.</div>
-        <div class="modal-footer">
-		  <a class="btn btn-primary" href="../index.php">Login</a>
-          <a class="btn btn-secondary quit" href="">Quit</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <?php define('__ROOT__', dirname(dirname(__FILE__)));
 require_once(__ROOT__.'/global-scripts.php');
+require_once(__ROOT__.'/modals/logout.php');
+require_once(__ROOT__.'/modals/time-out.php');
 require_once('../page-sections/footer-elements.php');?>
 
   </body>
