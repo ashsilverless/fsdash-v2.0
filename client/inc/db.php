@@ -5,18 +5,18 @@ session_start();
 if(!$_SESSION['fs_client_loggedin']){
     header("location:../index.php");
 }
-
+/*
 if($_GET['err']!=""){
 	ini_set ("display_errors", "1");	error_reporting(E_ALL);
 }
-
+*/
 	##################      LIVE SERVER     ###########################
 
-	$host = "localhost";
-	$user = "FeatherStoneDashboard";
-	$pass = "FSD>Login-1";
-	$db	 = "featherstone_db";
-	$charset = 'utf8mb4';
+$host = "46.32.229.204";
+$user = "FeatherStoneDashboard";
+$pass = "FSD>Login-1";
+$db = "featherstone_db";
+$charset = 'utf8mb4';
 
 	##################     / LIVE SERVER     ##########################
 

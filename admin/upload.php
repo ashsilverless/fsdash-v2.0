@@ -1,10 +1,11 @@
 <?php
 include 'inc/db.php';     # $host  -  $user  -  $pass  -  $db
+require_once "simplexlsx.class.php";
 /*
 
 ini_set ("display_errors", "1");
 	error_reporting(E_ALL);
-	
+
 	*/
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
@@ -13,7 +14,7 @@ header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 
 $targetDir = 'dataupload/';
-
+$uploader_name = $_SESSION['fs_admin_name'];
 
 $cleanupTargetDir = true; // Remove old files
 $maxFileAge = 5 * 3600; // Temp file age in seconds
@@ -51,7 +52,7 @@ $filePath = $targetDir . DIRECTORY_SEPARATOR . $fileName;
 if (!file_exists($targetDir))
 	@mkdir($targetDir);
 
-// Remove old temp files	
+// Remove old temp files
 if ($cleanupTargetDir) {
 	if (is_dir($targetDir) && ($dir = opendir($targetDir))) {
 		while (($file = readdir($dir)) !== false) {
@@ -66,7 +67,7 @@ if ($cleanupTargetDir) {
 	} else {
 		die('{"jsonrpc" : "2.0", "error" : {"code": 100, "message": "Failed to open temp directory."}, "id" : "id"}');
 	}
-}	
+}
 
 // Look for the content type header
 if (isset($_SERVER["HTTP_CONTENT_TYPE"]))
@@ -117,43 +118,37 @@ if (strpos($contentType, "multipart") !== false) {
 
 // Check if file has been uploaded
 if (!$chunks || $chunk == $chunks - 1) {
-	// Strip the temp .part suffix off 
+	// Strip the temp .part suffix off
 	rename("{$filePath}.part", $filePath);
 
     /* ########################################    PARSE THE DATA     ############################ */
-	$fcontents = file("dataupload/".$fileName); 
 
-	$conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
-	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	
-	for($i=1; $i<sizeof($fcontents); $i++) { 
-		$line = trim($fcontents[$i]); 
-		$arr = explode(",", $line);
-		
-		if(sizeof($arr)!=16){
-			die('{"jsonrpc" : "2.0", "error" : "Unexpected File Format"}');
-		}
-		
-		$t_date = explode('/',$arr[0]);
-		
-		$transaction_date = $t_date[2]."-".$t_date[1]."-".$t_date[0];
-		
-		if(validateDate($transaction_date)){
+		$conn = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-			$d_ref = $arr[1];     $d_type = $arr[2];     $isin_code = $arr[3];     
-			$sedol = $arr[4];     $fund_name = $arr[5];     $curr_code = $arr[6];     $ac_units = $arr[7];     
-			$c_type_desc = $arr[8];     $client_code = str_replace('0000','',$arr[9]);     $client_name = $arr[10];     $designation = $arr[11];     
-			$p_type = $arr[12];     $shares = $arr[13];     $t_price = $arr[14];     $in_ammount = $arr[15]; 
+		if ( $xlsx = SimpleXLSX::parse("dataupload/".$fileName) ) {
+			foreach ( $xlsx->rows() as $r => $arr ) {
 
-			$sql = "INSERT INTO `tbl_fs_transactions` (`fs_transaction_date`, `fs_deal_ref`, `fs_deal_type`, `fs_isin_code`, `fs_fund_sedol`, `fs_fund_name`, `fs_currency_code`, `fs_aui`, `fs_client_desc`, `fs_client_code`, `fs_client_name`, `fs_designation`, `fs_product_type`, `fs_shares`, `fs_t_price`, `fs_iam`, `bl_live`, `fs_file_name`) VALUES ('$transaction_date', '$d_ref', '$d_type', '$isin_code', '$sedol', '$fund_name', '$curr_code', '$ac_units', '$c_type_desc', '$client_code', '$client_name', '$designation', '$p_type', '$shares', '$t_price', '$in_ammount', '2','$fileName')";
+				$transaction_date = $arr[0];     $d_ref = $arr[1];     $d_type = $arr[2];     $isin_code = $arr[3];
+				$sedol = $arr[4];     $fund_name = $arr[5];     $curr_code = $arr[6];     $ac_units = $arr[7];
+				$c_type_desc = $arr[8];     $client_code = str_replace('0000','',$arr[9]);     $client_name = $arr[10];     $designation = $arr[11];
+				$p_type = $arr[12];     $shares = $arr[13];     $t_price = $arr[14];     $in_ammount = $arr[15];
 
-			$conn->exec($sql);
+				if($r !== 0){
+					$sql = "INSERT INTO `tbl_fs_transactions` (`fs_transaction_date`, `fs_deal_ref`, `fs_deal_type`, `fs_isin_code`, `fs_fund_sedol`, `fs_fund_name`, `fs_currency_code`, `fs_aui`, `fs_client_desc`, `fs_client_code`, `fs_client_name`, `fs_designation`, `fs_product_type`, `fs_shares`, `fs_t_price`, `fs_iam`, `bl_live`, `fs_file_name`, `confirmed_by`) VALUES ('$transaction_date', '$d_ref', '$d_type', '$isin_code', '$sedol', '$fund_name', '$curr_code', '$ac_units', '$c_type_desc', '$client_code', '$client_name', '$designation', '$p_type', '$shares', '$t_price', '$in_ammount', '2','$fileName','$uploader_name-unconfirmed')";
+
+					$conn->exec($sql);
+
+				}
+
+			}
+		} else {
+			echo SimpleXLSX::parseError();
 		}
 
+		$conn = null;
+	/* ########################################################################################### */
 
-	}
-	
-	$conn = null; 
 }
 
 die('{"jsonrpc" : "2.0", "result" : "'.$fileName.'", "error" : "NULL"}');

@@ -2,7 +2,7 @@
 session_start();
 	##################      LIVE SERVER     ###########################
 
-	$host = "localhost";
+	$host = "46.32.229.204";
 	$user = "root";
 	$pass = "root";
 	$db	 = "featherstone_db";

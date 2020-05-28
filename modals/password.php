@@ -1,13 +1,13 @@
 <!--    Logged Out  -->
-    <div class="modal fade fullscreen" id="loggedout" tabindex="-1" role="dialog" aria-labelledby="LoggedOut" aria-hidden="true">
+    <div class="modal fade fullscreen" id="password-change" tabindex="-1" role="dialog" aria-labelledby="LoggedOut" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">You should change your password</h5>
         </div>
         <div class="modal-body">
-		  
-		  
+
+
 		<form action="editclient.php" method="post" id="editclient" name="editclient" class="settings">
 
                 <div class="variable-details">
@@ -28,11 +28,11 @@
 
                 <input id="submit" type="submit" name="submit" value="Save Changes" />
 
-            </form>  
-		  
-		  
-		  
-		  
+            </form>
+
+
+
+
 		</div>
 
       </div>
