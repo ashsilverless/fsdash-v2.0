@@ -103,16 +103,17 @@
 
 .data-table {
     display: grid;
-    margin-bottom:5rem; /*TEMP*/
     &__head,
     &__body,
-    &__extended {
+    &__extended,
+    &__foot {
         display: grid;
         grid-template-columns: 25% 15% 20% 18% 7% 5%;
         grid-column-gap: 1rem;
         align-items: center;
     }
-    &__head {
+    &__head,
+    &__foot {
         padding:1rem;
         .heading {
             color: $color_purple;
@@ -156,11 +157,20 @@
         margin-bottom: 2rem;
         padding:1rem;
     }
+    &__foot {
+        &.content {
+            margin-bottom: 5rem;
+            padding-top: 0;
+            .heading {
+                color: $color_green;
+            }
+        }
+    }
 }
 
 .toggle-section {
     transition:max-height .5s ease;
-    max-height: 0;
+    /*max-height: 0; *** Removed until toggle fixed */
     overflow:hidden;
 }
 

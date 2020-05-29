@@ -1,9 +1,12 @@
 /* CLASS AND FOCUS ON CLICK */
 
-$('.toggle').on('click', function() {
-  $( '.data-table__account-wrapper.active' ).removeClass('active');
-  $(this).closest( '.data-table__account-wrapper' ).addClass('active');
-})
+$(window).on('load', function() {
+    $('.toggle').on('click', function() {
+        console.log('aaa');
+      $( '.data-table__account-wrapper.active' ).removeClass('active');
+      $(this).closest( '.data-table__account-wrapper' ).addClass('active');
+    })
+});
 
 $('.asset-wrapper__table .toggle').on('click', function() {
     $('.item.active').removeClass('active');
