@@ -29,6 +29,8 @@ try {
 catch(PDOException $e) {
   echo $e->getMessage();
 }
+
+$strat_id = getField('tbl_fs_strategy_names','id','strat_name',$strategy);
 ?>
 <?php
 define('__ROOT__', dirname(dirname(__FILE__)));
@@ -52,7 +54,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
                 	  // Connect and create the PDO object
                 	  $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
                 	  $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
-                		$query = "SELECT *  FROM `tbl_fs_theme_strats` where strat_id = '$strategy' AND strat_val = '1' AND bl_live = 1;";
+                		$query = "SELECT *  FROM `tbl_fs_theme_strats` where strat_id = '$strat_id' AND strat_val = '1' AND bl_live = 1;";
 
                 		debug($query);
                 		$result = $conn->prepare($query);

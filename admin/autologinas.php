@@ -30,6 +30,8 @@ $cid = $_GET['cid'];
 		$_SESSION['fs_client_googleCode']	= $code;
 		$_SESSION['fs_client_loggedin'] = TRUE;
 		
+		$_SESSION['last_logged_in'] 	= $row['last_logged_in'];
+		
 		header("location:../client/home.php");
 		exit();
 	}else{

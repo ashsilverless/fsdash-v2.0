@@ -13,10 +13,13 @@ $confirmed_date = $row['confirmed_date']= date('d M Y');
 
 $lastlogin = date('g:ia \o\n D jS M y',strtotime(getLastDate('tbl_fsusers','last_logged_in','last_logged_in','id = "'.$_SESSION['fs_client_user_id'].'"')));
 
-$strategy = strtolower(getField('tbl_fsusers','strategy','id',$_SESSION['fs_client_user_id']));
+$strategy = getField('tbl_fsusers','strategy','id',$_SESSION['fs_client_user_id']);
 //REMOVE NEXT LINE WHEN PUSHING
 //$strategy = 'fs_growth_'.strtolower(getField('tbl_fsusers','strategy','id','5'));
 
+
+
+$strat_id = getField('tbl_fs_strategy_names','id','strat_name',$strategy);
 
 
 
@@ -25,7 +28,7 @@ try {
   $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
   $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
 
-    $query = "SELECT *  FROM `tbl_fs_asset_strat_vals` where strat_id LIKE '$strategy' AND bl_live = 1;";
+    $query = "SELECT *  FROM `tbl_fs_asset_strat_vals` where strat_id LIKE '$strat_id' AND bl_live = 1;";
 
 	debug($query);
 

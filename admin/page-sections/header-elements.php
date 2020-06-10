@@ -19,6 +19,7 @@
                       <a class="main-menu__item <?php echo $current_page == 'assets.php' ? 'active':NULL ?>" href="assets.php">Asset Allocation & Holdings</a>
                       <a class="main-menu__item <?php echo $current_page == 'themes.php' ? 'active':NULL ?>" href="themes.php">Themes</a>
                       <a class="main-menu__item <?php echo $current_page == 'peers.php' ? 'active':NULL ?>" href="peers.php">Peers</a>
+                        <a class="main-menu__item <?php echo $current_page == 'accounts.php' ? 'active':NULL ?>" href="accounts.php">Accounts</a>
                       <a class="main-menu__item <?php echo $current_page == 'clients.php' ? 'active':NULL ?>" href="clients.php">Clients</a>
                       <a class="main-menu__item <?php echo $current_page == 'staff.php' ? 'active':NULL ?>" href="staff.php">Staff</a>
                       <a class="button button__raised" href="#" data-toggle="modal" data-target="#logoutModal">

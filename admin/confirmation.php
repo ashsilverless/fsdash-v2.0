@@ -40,7 +40,7 @@ $qrCodeUrl 	= $ga->getQRCodeGoogleUrl($user, $secret,'www.featherstone.co.uk');
                                     </div>
 									<?php }?>
                                     <div class="form-group">
-										<input type="text" name="code" id="code" autocomplete="off" value="" required>
+										<input type="text" name="code" id="code" autocomplete="off" value="" required autofocus="autofocus">
                                         <label>Enter Google Authenticator Code</label>
                                     </div>
 

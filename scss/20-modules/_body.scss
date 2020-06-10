@@ -775,6 +775,66 @@ form.fund {
     background: #484848;
 }
 
+.account-table {
+    display: grid;
+    &__head,
+    &__item {
+        display: grid;
+        grid-template-columns: 15% 25% 20% 15% 15%;
+        grid-column-gap:2rem;
+    }
+    &__head {
+        margin-bottom:1rem;
+        padding: 0 2rem;
+        .heading {
+            color: $color_purple;
+        }
+    }
+    &__item {
+        grid-template-rows:auto auto;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid #606060;
+        padding-bottom: 1rem;
+        &:last-of-type {
+            border:none;
+            margin-bottom: 0;
+        }
+        .heading, p, img {
+            grid-row:1/3;
+        }
+        .heading {
+            color: $color_green;
+        }
+        img {
+            max-width: 3rem;
+        }
+    }
+    .recess-box {
+        padding:2rem;
+    }
+    &.front {
+        padding: 2rem;
+    }
+    &.front .account-table__item {
+        grid-template-columns: 1fr 2fr 6fr;
+    }
+}
+
+.new-account {
+    .add-account {
+        grid-column: 1/3;
+        &__new {
+            grid-column: 1/3;
+            grid-template-columns: 1fr 1fr 1fr;
+            border:none;
+            padding:2rem 0 0;
+
+            .last {
+                grid-column: 2/4;
+            }
+        }
+    }
+}
 
 .clients-table {
     display: grid;

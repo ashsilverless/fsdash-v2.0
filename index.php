@@ -29,6 +29,8 @@ if ($csrf == $_SESSION["fs_client_token"]) {
 
 		$row['last_logged_in'] != '' ?	$_SESSION['fs_client_newregister'] = 0 : $_SESSION['fs_client_newregister'] = 1;
 
+		$_SESSION['last_logged_in'] 	= $row['last_logged_in'];
+
 		header('Location:device_confirmations.php');
 		exit();
 	}else{

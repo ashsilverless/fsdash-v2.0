@@ -4,14 +4,10 @@ include 'inc/db.php';     # $host  -  $user  -  $pass  -  $db
 ini_set ("display_errors", "1");	error_reporting(E_ALL);
     */
 
-$user_id = $_SESSION['fs_client_featherstone_uid'];
+$user_id = $_SESSION['fs_client_user_id'];
 $client_code = $_SESSION['fs_client_featherstone_cc'];
 
-
-$client_code = '1111';
-
-
-$last_date = getLastDate('tbl_fs_transactions','fs_transaction_date','fs_transaction_date','fs_client_code = "'.$client_code.'"');
+$last_date = getLastDate('tbl_fs_transactions','fs_transaction_date','fs_transaction_date','fs_isin_code = "GB0009346486"');
 
 $lastlogin = date('g:ia \o\n D jS M y',strtotime(getLastDate('tbl_fsusers','last_logged_in','last_logged_in','id = "'.$_SESSION['fs_client_user_id'].'"')));
 $testVar = 'test';
@@ -21,10 +17,10 @@ try {
   $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
 
 
-     //    Get the general products data for Client   ///
+     //    Get the user data for Client   ///
 
 
-  $query = "SELECT * FROM tbl_fsusers where fs_client_code LIKE '$client_code' AND bl_live = 1;";
+  $query = "SELECT * FROM tbl_fsusers where id LIKE '$user_id' AND bl_live = 1;";
 
 
   $result = $conn->prepare($query);
@@ -33,22 +29,9 @@ try {
   // Parse returned data
   while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 	  $user_name = $row['user_name'];
-	  $linked_accounts = $row['linked_accounts'];
 
   }
 
-
-     //    Get the products   ///
-
-  $query = "SELECT DISTINCT fs_product_type FROM `tbl_fs_transactions` where fs_client_code LIKE '$client_code' AND bl_live = 1;";
-
-  $result = $conn->prepare($query);
-  $result->execute();
-
-  // Parse returned data
-  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-      $products[] = $row;
-  }
 
   $conn = null;        // Disconnect
 
@@ -77,6 +60,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 
 
             <div class="data-section tables">
+
                 <h2 class="heading heading__2">Accounts for <?=$user_name;?></h2>
                 <div class="data-table">
                     <div class="data-table__head">
@@ -127,7 +111,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 
         </div>
     </div>
-
+<!--
 <div class="data-section chart">
     <div class="container">
 
@@ -140,7 +124,7 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 
     </div>
 </div>
-
+-->
 
 
 </div>
@@ -163,77 +147,11 @@ require_once(__ROOT__.'/modals/time-out.php');
 
 	   $(document).ready(function() {
 
-		  $(".calcs").load("__calcs.php?fs_cc=<?=$client_code;?>");
-
-		  <?php if ($linked_accounts != ''){
-					$lnkarray = explode('|',$linked_accounts);
-					$lnk_array = array_filter($lnkarray);
-
-					foreach ($lnk_array as $lnk_client_code): ?>
-
-		   				$(".linked_calcs").append( $('<div>').load("__calcs.php?fs_cc=<?=$lnk_client_code;?>") );
-
-		   			 //$(".linked_calcs").load("__calcs.php?fs_cc=<?=$lnk_client_code;?>");
-
-		   		<?php endforeach; // End For
-
-				}  //  End If ?>
-
-
+		  $(".calcs").load("__calcs2.php?ca_lnk=0");
+		  $(".linked_calcs").load("__calcs2.php?ca_lnk=1");
 
 	});
 
-		Chart.defaults.global.legend.display = false;
-
-/* ##########################################       LINE CHART     ################################################## */
-
-		<?php
-		try {
-		  // Connect and create the PDO object
-		  $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
-		  $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
-
-			// Latest Date
-			$monthago = Date("Y-m-d", strtotime("2020-01-23 -60 days"));
-
-		//    Get the price data for Client Graph   ///
-
-		  $query = "SELECT * FROM `tbl_fs_transactions` where fs_deal_type NOT LIKE 'Periodic Advisor Charge' AND fs_product_type LIKE 'ISA' AND fs_client_code LIKE '$client_code' AND bl_live = 1 AND fs_transaction_date > '$monthago' ORDER BY fs_transaction_date ASC;";
-
-		  $result = $conn->prepare($query);
-		  $result->execute();
-
-		  // Parse returned data
-		  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			  $data1 .= $row['fs_t_price']*$row['fs_shares'].',';
-			  $labels1 .= "'".$row['fs_transaction_date']."',";
-		  }
-
-		}
-
-		catch(PDOException $e) {
-		  echo $e->getMessage();
-		}
-		?>
-
-		var ctxline = document.getElementById('linechart');
-		var myLineChart = new Chart(ctxline, {
-			type: 'line',
-			data: {
-				datasets: [{
-					fill:false,
-					lineTension:.3,
-					borderColor:['rgba(0, 0, 0, 1)'],
-					borderWidth:1,
-                    color: ['rgba(253, 0, 0, 0.95)'],
-					label:'Performance Data',
-					data:[<?=$data1;?>],
-				}],
-				labels: [<?=$labels1;?>]
-			},
-
-			options: { tooltips: {enabled: true}}
-		});
     </script>
   </body>
 </html>
