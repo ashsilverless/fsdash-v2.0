@@ -32,6 +32,33 @@ try {
 
   }
 
+  //    Get the Client Accounts   ///
+
+  $query = "SELECT * FROM `tbl_fs_client_accounts` where fs_client_id = '$user_id' AND ca_linked = '0' AND bl_live = 1 ORDER by ca_order_by DESC;;";
+
+  $result = $conn->prepare($query);
+  $result->execute();
+
+  // Parse returned data
+  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+      $client_accounts[] = $row;
+  }
+
+
+	foreach ($client_accounts as $ca):
+
+		  $query = "SELECT * FROM `tbl_accounts` where id = ".$ca['ac_account_id']." AND bl_live = 1;";
+
+		  $result = $conn->prepare($query);
+		  $result->execute();
+
+		  // Parse returned data
+		  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+			  $accounts[] = $row;
+		  }
+
+	endforeach;
+
 
   $conn = null;        // Disconnect
 
@@ -111,20 +138,16 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 
         </div>
     </div>
-<!--
+
 <div class="data-section chart">
-    <div class="container">
+	<?php foreach ($accounts as $account): ?>
+	<p><a href="#?ac_id=<?=$account['id'];?>" class="accountchart"><?=$account['ac_display_name'];?></a><p>
+	<?php endforeach; ?>
 
-        <div class="row">
-            <div class="col-md-12">
-                <canvas class="my-4 w-100 chartjs-render-monitor" id="linechart" height="400"></canvas>
 
-            </div>
-        </div>
-
-    </div>
+    <div class="chartcontainer"></div>
 </div>
--->
+
 
 
 </div>
@@ -145,12 +168,31 @@ require_once(__ROOT__.'/modals/time-out.php');
 
    <script>
 
-	   $(document).ready(function() {
+
+
+	 $(document).ready(function() {
 
 		  $(".calcs").load("__calcs2.php?ca_lnk=0");
 		  $(".linked_calcs").load("__calcs2.php?ca_lnk=1");
 
+		$(document).on('click', '.accountchart', function(e) {
+            e.preventDefault();
+            var ac_id = getParameterByName('ac_id',$(this).attr('href'));
+            $(".chartcontainer").load("chart.php?ac_id="+ac_id);
+        });
+
+
 	});
+
+	function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
 
     </script>
   </body>
