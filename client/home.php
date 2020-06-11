@@ -43,10 +43,10 @@ try {
   while($row = $result->fetch(PDO::FETCH_ASSOC)) {
       $client_accounts[] = $row;
   }
-
-
+	
+	
 	foreach ($client_accounts as $ca):
-
+	
 		  $query = "SELECT * FROM `tbl_accounts` where id = ".$ca['ac_account_id']." AND bl_live = 1;";
 
 		  $result = $conn->prepare($query);
@@ -56,9 +56,9 @@ try {
 		  while($row = $result->fetch(PDO::FETCH_ASSOC)) {
 			  $accounts[] = $row;
 		  }
-
+	
 	endforeach;
-
+	
 
   $conn = null;        // Disconnect
 
@@ -136,15 +136,17 @@ require_once(__ROOT__.'/page-sections/sidebar-elements.php');
 
 			<div class="linked_calcs"></div>
 
-        </div>
+        	</div>
     </div>
+			
+
 
 <div class="data-section chart">
 	<?php foreach ($accounts as $account): ?>
 	<p><a href="#?ac_id=<?=$account['id'];?>" class="accountchart"><?=$account['ac_display_name'];?></a><p>
 	<?php endforeach; ?>
-
-
+	
+	
     <div class="chartcontainer"></div>
 </div>
 
@@ -167,23 +169,23 @@ require_once(__ROOT__.'/modals/time-out.php');
 ?>
 
    <script>
-
-
+	   
+	   
 
 	 $(document).ready(function() {
 
 		  $(".calcs").load("__calcs2.php?ca_lnk=0");
 		  $(".linked_calcs").load("__calcs2.php?ca_lnk=1");
-
+		   
 		$(document).on('click', '.accountchart', function(e) {
             e.preventDefault();
             var ac_id = getParameterByName('ac_id',$(this).attr('href'));
             $(".chartcontainer").load("chart.php?ac_id="+ac_id);
         });
-
+		   
 
 	});
-
+	   
 	function getParameterByName(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");

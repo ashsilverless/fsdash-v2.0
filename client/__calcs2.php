@@ -198,7 +198,7 @@ catch(PDOException $e) {
 
 ?>
 				
-					<div class="data-table__account-wrapper">
+					<div class="data-table__account-wrapper <?=$ac['id'];?>">
 
 						<div class="data-table__body">
 							<div>
@@ -295,7 +295,7 @@ catch(PDOException $e) {
 
 					endforeach;
 					
-					#echo ( '<p>&nbsp;</p></div></div>' );
+					echo ( '</div>' );
 										  
 					}
 					echo ('</div>');
@@ -310,9 +310,5 @@ catch(PDOException $e) {
 				?>
 				
             </div>
-
-
-
-
 
 </div>
