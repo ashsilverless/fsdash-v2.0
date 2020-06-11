@@ -8,12 +8,6 @@ $start_time = microtime(true);
 
 $ac_id = $_GET['ac_id'];  $dl_data = $_GET['dl_data'];
 
-
-if( $dl_data == 'dl'){
-	header("Content-type: text/x-csv");
-	header("Content-Disposition: attachment; filename=mailing_list.csv");
-}
-
  $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
  $conn->exec("SET CHARACTER SET $charset");      // Sets encoding UTF-8
 
@@ -30,6 +24,12 @@ if( $dl_data == 'dl'){
 			  $producttype = $row['ac_product_type'];
 		  }
 
+if( $dl_data == 'dl'){
+	header("Content-type: text/x-csv");
+	header("Content-Disposition: attachment; filename=".$clientCode.".csv");
+}
+
+
 $isincode = 'GB0009346486';
 $isincode2 = 'GB00BJQWRN41';
 $isincode3 = 'GB00B1LB2Z79';
@@ -40,6 +40,7 @@ $time = strtotime($today.' -1 year');
 $lastyear = date("Y-m-d", $time);
 
 if( $dl_data == 'dl'){
+			echo ($title."\n\n");
 			echo ("Date,ISIN,Value,Shares,Fund Price,Value 2\n");
 		}
 

@@ -168,7 +168,7 @@ catch(PDOException $e) {
 							  }
 							
 				
-							$gain_pounds = ($currentvalue - $account_subtotal);
+							$gain_pounds = round(($currentvalue - $account_subtotal),2);
 							$gain_percent = round(((($currentvalue / $account_subtotal) * 100) - 100),2);
 				
 							$grand_total_value += $currentvalue;
