@@ -81,10 +81,10 @@
 }
 
 .daily-data {
-    .data-section {
+    /*.data-section {
         overflow:hidden;
         transition: max-height 0.5s ease;
-        max-height: 0;
+        max-height: 1rem;
         &.tables {
             max-height: 150vh;
         }
@@ -98,7 +98,7 @@
                 max-height: 150vh;
             }
         }
-    }
+    }*/
 }
 
 .data-table {
@@ -170,7 +170,7 @@
 
 .toggle-section {
     transition:max-height .5s ease;
-    /*max-height: 0; *** Removed until toggle fixed */
+    max-height: 0;
     overflow:hidden;
 }
 
@@ -1269,5 +1269,36 @@ form.settings {
     .heading + p,
     p + p {
         margin-top:1rem;
+    }
+}
+.chart-select {
+    position: relative;
+    border: 1px solid transparent;
+    margin:1rem 1rem 2rem 0;
+    transition: all .5s ease;
+    &.active {
+        background: #262626;
+        border: 1px solid #bccab0;
+        box-shadow: -3px -3px 3px #252525, 5px 5px 10px #5d5d5d;
+        /*&:after {
+            content:'';
+            position: absolute;
+            bottom:-10px;
+            left:50%;
+            margin-left: -10px;
+            width:20px;
+            height: 10px;
+            border-style: solid;
+            border-width: 10px 10px 0 10px;
+            border-color: #bdcaaf transparent transparent transparent;
+            transition: all .5s ease;
+        }*/
+    }
+}
+.chartcontainer {
+    @include recessUI;
+    padding: 1rem 0;
+    .controls {
+        text-align: center;
     }
 }

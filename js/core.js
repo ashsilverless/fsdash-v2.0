@@ -1,6 +1,6 @@
 /* CLASS AND FOCUS ON CLICK */
 
-$(window).on('load', function() {
+$(document).ready(function() {
     $('.toggle').on('click', function() {
         console.log('aaa');
       $( '.data-table__account-wrapper.active' ).removeClass('active');
@@ -33,10 +33,10 @@ $.fn.toggleText = function(t1, t2){
   return this;
 };
 
-$('.data-toggle').on('click', function() {
-    $('.main-content').toggleClass('show-chart');
-    $(this).toggleText('View Tables', 'View Charts');
-})
+//$('.data-toggle').on('click', function() {
+//    $('.main-content').toggleClass('show-chart');
+//    $(this).toggleText('View Tables', 'View Charts');
+//})
 
 $(".add").click(function(e){
   e.preventDefault();
@@ -56,6 +56,14 @@ $('#confirm-delete').on('show.bs.modal', function(e) {
 
 $('.fund-toggle').on('click', function() {
     $(this).closest('form.fund').toggleClass('active');
+})
+$('.chart-select').on('click', function() {
+    $('.chart-select.active').removeClass('active');
+    $(this).addClass('active');
+})
+$('.graphtime').on('click', function() {
+    //$('.graphtime.active').removeClass('active');
+    $(this).addClass('active');
 })
 /*$( document ).ready(function() {
     $(".table").tablesorter();
