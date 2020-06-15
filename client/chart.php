@@ -8,6 +8,10 @@ $start_time = microtime(true);
 
 $ac_id = $_GET['ac_id'];  $time_period = $_GET['t'];  $dl_data = $_GET['dl_data'];
 
+if ($time_period == ''){ $time_period = 365; };
+
+
+
 $time_period > 366 ? $step = 7 : $step = 1;
 
  $conn = new PDO("mysql:host=$host; dbname=$db", $user, $pass);
@@ -116,9 +120,9 @@ $conn = null;        // Disconnect
 
 if( $dl_data != 'dl'){
 
-$time_elapsed_secs = microtime(true) - $start_time;
-//define('__ROOT__', dirname(dirname(__FILE__)));
-//require_once(__ROOT__.'/global-scripts.php');
+	$time_elapsed_secs = microtime(true) - $start_time;
+
+	$style1 = 'graphtime__active';
 ?>
 
 
@@ -126,9 +130,9 @@ $time_elapsed_secs = microtime(true) - $start_time;
     <div class="row">
         <div class="col-md-12 controls">
             <h5 class="heading heading__5">Chart Period</h5>
-            <a href="#?t=180&ac_id=<?=$ac_id;?>" class="button button__inline graphtime">6 Months</a>
-            <a href="#?t=365&ac_id=<?=$ac_id;?>" class="button button__inline graphtime">1 Year</a>
-            <a href="#?t=1095&ac_id=<?=$ac_id;?>" class="button button__inline graphtime">3 Years</a>
+            <a href="#?t=180&ac_id=<?=$ac_id;?>" class="button button__inline graphtime <?php if($time_period==180){ echo($style1); };?>" >6 Months</a>
+            <a href="#?t=365&ac_id=<?=$ac_id;?>" class="button button__inline graphtime <?php if($time_period==365){ echo($style1); };?>">1 Year</a>
+            <a href="#?t=1095&ac_id=<?=$ac_id;?>" class="button button__inline graphtime <?php if($time_period==1095){ echo($style1); };?>">3 Years</a>
             <!--<a href="#?t=1825&ac_id=<?=$ac_id;?>" class="graphtime">5 Years</a>-->
         </div>
     </div>
@@ -173,9 +177,10 @@ $time_elapsed_secs = microtime(true) - $start_time;
 					{
 						fill:false,
 						lineTension:0,
-						borderColor:['rgba(100, 100, 100, 1)'],
-						borderWidth:1,
-						color: ['rgba(100, 100, 100, 0.95)'],
+                        borderColor:['rgba(150, 232, 196, 1)'],
+						backgroundColor:['rgba(150, 232, 196, 0.1)'],
+						borderWidth:2,
+						color: ['rgba(150, 232, 196, 0.95)'],
 						label:'<?=$f_name[$isin];?>',
 						hidden: true,
 						data:[<?=$value;?>],

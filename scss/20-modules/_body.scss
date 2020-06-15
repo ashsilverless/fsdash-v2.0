@@ -1302,3 +1302,40 @@ form.settings {
         text-align: center;
     }
 }
+
+.graphtime {
+    padding: .25rem 1rem;
+    margin-top: 1rem;
+    &__active {
+        border: 1px solid #7b7b7b;
+        border-radius: 5px;
+    }
+}
+.chart-close {
+    @include raisedUI;
+    position: absolute;
+    top: -0.5rem;
+    right: 0;
+    z-index: 10;
+    padding: 0.5rem 1rem .5rem 2.25rem;
+    cursor:pointer;
+    svg {
+        width: 1rem;
+        height: auto;
+        fill: white;
+        margin-top: 0.25rem;
+        position: absolute;
+        left: 13px;
+        top: 5px;
+        path {
+            fill:$color_red;
+        }
+    }
+}
+.chartcontainer {
+    overflow: hidden;
+    max-height:100vh;
+    &.close {
+        max-height: 0;
+    }
+}

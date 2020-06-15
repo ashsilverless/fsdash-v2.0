@@ -470,9 +470,12 @@ h1, h2, h3, h4, h5, h6,
   font-weight: 200;
 }
 .heading__3 {
-  font: 32px/64.8px cormorant-garamond, serif;
+  font: 32px/36px cormorant-garamond, serif;
   text-transform: none;
   color: #96E8C4;
+}
+.heading__3 span {
+  font: 24px/28.8px cormorant-garamond, serif;
 }
 .heading__4 {
   font: 16px/19.2px mr-eaves-modern, sans-serif;
@@ -12237,6 +12240,52 @@ form.settings input[type=submit] {
 .chartcontainer .controls {
   padding: 2rem 0 1rem;
   text-align: center;
+}
+
+.graphtime {
+  padding: 0.25rem 1rem;
+  margin-top: 1rem;
+}
+.graphtime__active {
+  border: 1px solid #7b7b7b;
+  border-radius: 5px;
+}
+
+.chart-close {
+  border: none;
+  border-radius: 1rem;
+  -webkit-box-shadow: 3px 3px 3px #252525, -5px -5px 10px #5d5d5d;
+          box-shadow: 3px 3px 3px #252525, -5px -5px 10px #5d5d5d;
+  background-color: #484848;
+  background: -o-linear-gradient(96deg, #555555 0%, #303030 100%);
+  background: linear-gradient(-6deg, #555555 0%, #303030 100%);
+  color: white;
+  position: absolute;
+  top: -0.5rem;
+  right: 0;
+  z-index: 10;
+  padding: 0.5rem 1rem 0.5rem 2.25rem;
+  cursor: pointer;
+}
+.chart-close svg {
+  width: 1rem;
+  height: auto;
+  fill: white;
+  margin-top: 0.25rem;
+  position: absolute;
+  left: 13px;
+  top: 5px;
+}
+.chart-close svg path {
+  fill: #ff7175;
+}
+
+.chartcontainer {
+  overflow: hidden;
+  max-height: 100vh;
+}
+.chartcontainer.close {
+  max-height: 0;
 }
 
 /*! == FOOTER == */
