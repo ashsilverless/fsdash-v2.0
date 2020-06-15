@@ -191,6 +191,12 @@ require_once(__ROOT__.'/modals/time-out.php');
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
 
+
+    $(document).on('click', '.toggle', function(e) {
+                console.log('aaa');
+              $(this).closest( '.data-table__account-wrapper' ).toggleClass('active');
+        });
+
     </script>
   </body>
 </html>

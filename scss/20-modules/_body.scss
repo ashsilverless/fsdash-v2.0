@@ -1297,8 +1297,8 @@ form.settings {
 }
 .chartcontainer {
     @include recessUI;
-    padding: 1rem 0;
     .controls {
+        padding:2rem 0 1rem;
         text-align: center;
     }
 }

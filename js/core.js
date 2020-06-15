@@ -1,13 +1,5 @@
 /* CLASS AND FOCUS ON CLICK */
 
-$(document).ready(function() {
-    $('.toggle').on('click', function() {
-        console.log('aaa');
-      $( '.data-table__account-wrapper.active' ).removeClass('active');
-      $(this).closest( '.data-table__account-wrapper' ).addClass('active');
-    })
-});
-
 $('.asset-wrapper__table .toggle').on('click', function() {
     $('.item.active').removeClass('active');
     $(this).closest( '.item' ).toggleClass('active');
